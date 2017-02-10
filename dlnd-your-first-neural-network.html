@@ -13613,13 +13613,13 @@ height=263
         <span class="c1"># (64,1) * (1,1) =&gt; Hidden_error(64,1)</span>
         <span class="n">hidden_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="p">(</span><span class="n">output_errors</span> <span class="o">*</span> <span class="n">output_grad</span><span class="p">))</span>   <span class="c1"># errors propagated to the hidden layer</span>
         
-        <span class="c1"># (64,1) * (64,1) =&gt; Hidden_grad(64,1) # inner dot of 2 vectors</span>
+        <span class="c1"># (64,1) * (64,1) =&gt; Hidden_grad(64,1) # multiplication</span>
         <span class="n">hidden_grad</span> <span class="o">=</span> <span class="n">hidden_outputs</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">hidden_outputs</span><span class="p">)</span>   <span class="c1"># hidden layer gradients      </span>
-   
+        
         <span class="c1"># (1,1) * (1,64) =&gt; W_ho(1,64)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">output_errors</span> <span class="o">*</span> <span class="n">output_grad</span><span class="p">)</span> <span class="o">*</span> <span class="n">hidden_outputs</span><span class="o">.</span><span class="n">T</span> <span class="c1"># update hidden-to-output weights with gradient descent step</span>
         
-        <span class="c1"># (64,1) * (64,1) =&gt; (64,1)  # inner dot of 2 vectors</span>
+        <span class="c1"># (64,1) * (64,1) =&gt; (64,1)  # multiplication</span>
         <span class="c1"># (64,1) * (1,56) =&gt; W_ih(64,56) # broadcasting and multiplication</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights_input_to_hidden</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">hidden_errors</span> <span class="o">*</span> <span class="n">hidden_grad</span><span class="p">)</span> <span class="o">*</span> <span class="n">inputs</span><span class="o">.</span><span class="n">T</span> <span class="c1"># update input-to-hidden weights with gradient descent step   </span>
         
